@@ -1,0 +1,107 @@
+---
+title: "Nova Live Page"
+description: "Introduction and Getting Started"
+---
+
+
+# 🌟 **NLP B2B SAAS Documentation**
+<br/>
+
+## **Introduction**
+
+Welcome to the **NLP** web app documentation! This document provides an overview of the key features, system requirements, and step-by-step instructions to get started with **NLP**.
+
+### **Overview of NLP**
+
+**NLP** is a powerful SAAS web application designed to provide cutting-edge Natural Language Processing solutions. It offers a range of features including text analysis, sentiment detection, language translation, and more.
+
+### **Key Features**
+
+- **Text Analysis**: Analyze and extract key information from text data.
+- **Sentiment Detection**: Identify and interpret sentiments in text.
+- **Language Translation**: Translate text between multiple languages.
+- **Customizable Pipelines**: Create and manage NLP pipelines tailored to your needs.
+
+<img src="../../../../public/preview.png" alt="NLP Overview" class="center" />
+
+## **System Requirements**
+
+Ensure your system meets the following requirements:
+
+- **Operating System**: Windows, macOS, or Linux
+- **Node.js**: Version 14 or above
+- **Database**: MongoDB or PostgreSQL
+
+## **Getting Started**
+
+Follow these steps to set up and run the **NLP** web app:
+
+### **Prerequisites**
+
+1. **Install Node.js**: [Download and install Node.js](https://nodejs.org/).
+2. **Install a Database**: Set up MongoDB or PostgreSQL.
+
+### **Installation Guide**
+
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/yourusername/nlp-web-app.git
+    cd nlp-web-app
+    ```
+
+2. **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+
+3. **Configure Environment Variables**:
+    Create a `.env` file in the root directory and add the following:
+    ```env
+    DATABASE_URL=your_database_url
+    NODE_ENV=development
+    ```
+
+### **Running the Application**
+
+1. **Start the Development Server**:
+    ```bash
+    npm run dev
+    ```
+
+2. **Open the Application**:
+    Open your browser and navigate to `http://localhost:3000`.
+
+### **Configuration**
+
+Customize your application settings by editing the configuration files located in the `config` directory.
+
+<pre class="code-block">
+|-- config
+|   |-- auth
+|       |-- authOptions.ts
+|       |-- index.ts
+|       |-- schema.ts
+|   |-- stripe
+|       |-- index.ts
+|       |-- stripe-schema.ts
+|   |-- uploadthing
+|       |-- index.ts
+|       |-- uploader.ts
+</pre>
+
+{/* <Image src="/public/setup-guide.png" alt="Setup Guide" class="center" />  */}
+
+## **Congratulations!**
+
+You have successfully set up the **NLP** web app. Now you can explore its features and start building powerful NLP solutions.
+
+```js
+// Example of starting the server
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+``

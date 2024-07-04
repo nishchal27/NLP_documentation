@@ -15,9 +15,9 @@ export default defineConfig({
           label: "Code Docs",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Code Documentation", link: "/code-docs/example/" },
-            { label: "Test", link: "/code-docs/test/" },
+            { label: "Introduction", link: "/code-docs/introduction/" },
             { label: "Folder Structure", link: "/code-docs/folder-structure/" },
+            { label: "Code Documentation", link: "/code-docs/example/" },
           ],
         },
         {
