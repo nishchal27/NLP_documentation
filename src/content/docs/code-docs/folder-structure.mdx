@@ -1,8 +1,87 @@
 ---
 title: Nova Live Page Folder Structure
-description: Overview of the web app's folder structure
+description: Overview and details of the NLP folder structure
 ---
 
+---
+Overview of Folder Structure
+---
+
+<pre class="o-root">
+C:.
+|-- folder_structure_overview.txt
+|-- middleware.ts
+|-- <span class="o-folder">app</span>
+|   |-- <span class="o-file">favicon.ico</span>
+|   |-- <span class="o-file">globals.css</span>
+|   |-- <span class="o-file">layout.tsx</span>
+|   |-- <span class="o-subfolder">(main)</span>
+|       |-- <span class="o-subfolder">agency</span>
+|       |-- <span class="o-subfolder">(auth)</span>
+|           |-- <span class="o-subfolder">sign-in</span>
+|               |-- [[...sign-in]]
+|           |-- <span class="o-subfolder">sign-up</span>
+|               |-- [[...sign-up]]
+|           |-- <span class="o-subfolder">unauthorized</span>
+|       |-- <span class="o-subfolder">[agencyId]</span>
+|           |-- <span class="o-subfolder">all-subaccounts</span>
+|               |-- _components
+|           |-- <span class="o-subfolder">billing</span>
+|               |-- _components
+|           |-- <span class="o-subfolder">launchpad</span>
+|           |-- <span class="o-subfolder">settings</span>
+|           |-- <span class="o-subfolder">team</span>
+|       |-- <span class="o-subfolder">subaccount</span>
+|           |-- <span class="o-subfolder">[subaccountId]</span>
+|               |-- <span class="o-subfolder">contacts</span>
+|                   |-- _components
+|               |-- <span class="o-subfolder">funnels</span>
+|                   |-- <span class="o-subfolder">[funnelId]</span>
+|                       |-- <span class="o-subfolder">editor</span>
+|                           |-- <span class="o-subfolder">[funnelPageId]</span>
+|                               |-- _components
+|                                   |-- <span class="o-subfolder">funnel-editor</span>
+|                                       |-- funnel-editor-components
+|                                   |-- <span class="o-subfolder">funnel-editor-sidebar</span>
+|                                       |-- <span class="o-subfolder">tabs</span>
+|                                           |-- components-tab
+|                       |-- _components
+|               |-- <span class="o-subfolder">launchpad</span>
+|               |-- <span class="o-subfolder">media</span>
+|               |-- <span class="o-subfolder">pipelines</span>
+|                   |-- <span class="o-subfolder">[pipelineId]</span>
+|                       |-- _components
+|               |-- <span class="o-subfolder">settings</span>
+|-- <span class="o-folder">api</span>
+|   |-- <span class="o-subfolder">stripe</span>
+|   |-- <span class="o-subfolder">uploadthing</span>
+|-- <span class="o-folder">site</span>
+|-- <span class="o-folder">[domain]</span>
+|   |-- <span class="o-subfolder">[path]</span>
+|-- <span class="o-folder">components</span>
+|   |-- <span class="o-subfolder">forms</span>
+|   |-- <span class="o-subfolder">global</span>
+|   |-- <span class="o-subfolder">icons</span>
+|   |-- <span class="o-subfolder">media</span>
+|   |-- <span class="o-subfolder">sidebar</span>
+|   |-- <span class="o-subfolder">site</span>
+|       |-- <span class="o-subfolder">navigation</span>
+|   |-- <span class="o-subfolder">ui</span>
+|-- <span class="o-folder">config</span>
+|   |-- <span class="o-subfolder">auth</span>
+|   |-- <span class="o-subfolder">stripe</span>
+|   |-- <span class="o-subfolder">uploadthing</span>
+|-- <span class="o-folder">lib</span>
+|-- <span class="o-folder">providers</span>
+|-- <span class="o-folder">types</span>
+|-- <span class="o-folder">utils</span>
+|-- <span class="o-folder">validations</span>
+</pre>
+
+
+---
+Details of Folder Structure:
+---
 
 ## Root Directory
 

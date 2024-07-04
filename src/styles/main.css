@@ -41,4 +41,18 @@
   .subfolder {
 	color: #FF9800;
   }
+
+/*Overview Folder Structure css*/
+.o-root {
+    color: #E91E63;
+}
+.o-folder {
+    color: #4CAF50;
+}
+.o-subfolder {
+    color: #FF9800;
+}
+.o-file {
+    color: #2196F3;
+}
   
