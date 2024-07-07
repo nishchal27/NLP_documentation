@@ -1,11 +1,102 @@
 ---
-title: Nova Live Page Folder Structure
+title: Nova Live Page SAAS
 description: Overview and details of the NLP folder structure
 ---
+
+# 📁 **Folder Structure**
+
+Understanding the folder structure is crucial for navigating and maintaining the project. The following is the structure for the SAAS web app **"NLP"**:
 
 ---
 Overview of Folder Structure
 ---
+
+
+```plaintext
+NLP/
+├── .env
+├── node_modules/
+├── prisma/
+│   └── schema.prisma
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── pages/
+│   ├── services/
+│   ├── styles/
+│   └── utils/
+├── .gitignore
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+## 🌐 **Root Directory**
+
+- **`.env`**: Contains environment variables such as database connection strings and API keys.
+- **`node_modules/`**: Directory where all npm dependencies are stored.
+- **`.gitignore`**: Specifies which files and directories to ignore in the version control.
+- **`package.json`**: Lists the project dependencies, scripts, and metadata.
+- **`README.md`**: Provides an overview of the project, setup instructions, and other documentation.
+- **`tsconfig.json`**: Contains TypeScript configuration settings.
+
+## 📁 **Prisma Directory**
+
+The `prisma/` directory contains the Prisma schema:
+
+
+This schema defines the data models and their relationships in your MySQL database.
+
+## 🌐 **Public Directory**
+
+The `public/` directory houses static assets such as images, fonts, and other files that don't change frequently.
+
+## 📁 **Src Directory**
+
+The `src/` directory contains the main codebase for the application. Here's a breakdown:
+
+### **`src/assets/`**
+
+Contains images, icons, and other static assets.
+
+### **`src/components/`**
+
+Houses reusable React components used throughout the application.
+
+### **`src/contexts/`**
+
+Context providers for global state management using React Context API.
+
+### **`src/hooks/`**
+
+Custom React hooks to encapsulate reusable logic.
+
+### **`src/pages/`**
+
+Contains the different pages of the application, each corresponding to a route.
+
+### **`src/services/`**
+
+Service functions for making API calls and handling data interactions.
+
+### **`src/styles/`**
+
+Global styles and theme configurations using CSS or a preprocessor like SCSS.
+
+### **`src/utils/`**
+
+Utility functions and helpers used across the application.
+
+{/* <figure>
+  <img src="/assets/folder-structure.png" alt="Folder Structure Visualization" style={{ border: '2px solid #ccc', borderRadius: '8px' }} />
+  <figcaption style={{ color: '#555' }}>Figure: Folder Structure Visualization</figcaption>
+</figure> */}
+
+---
+
 
 <pre class="o-root">
 C:.
@@ -434,3 +525,8 @@ C:.
 |-- validations
 |   |-- auth.ts
 </pre>
+
+## **Conclusion**
+
+By understanding the folder structure, you can effectively navigate and manage the codebase.
+This structure is designed to promote scalability and maintainability, ensuring a smooth development experience.

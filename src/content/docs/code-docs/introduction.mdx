@@ -17,20 +17,25 @@ Welcome to the **NLP** web app documentation! This document provides an overview
 
 ### **Key Features**
 
-- **Text Analysis**: Analyze and extract key information from text data.
-- **Sentiment Detection**: Identify and interpret sentiments in text.
-- **Language Translation**: Translate text between multiple languages.
-- **Customizable Pipelines**: Create and manage NLP pipelines tailored to your needs.
+- **User Management**: Manage users with different roles (Agency Owner, Admin, Subaccount User, Guest).
+- **Permissions**: Fine-grained permissions for subaccount users.
+- **Agency and Subaccount Management**: Create and manage multiple subaccounts within an agency.
+- **Kanban Boards**: Organize tasks using pipelines and lanes.
+- **Automations and Triggers**: Automate tasks and workflows.
+- **Notifications**: Stay informed with real-time notifications.
+- **Customizable Sidebar**: Tailor the navigation experience for agencies and subaccounts.
 
 <img src="../../../../public/preview.png" alt="NLP Overview" class="center" />
 
 ## **System Requirements**
 
-Ensure your system meets the following requirements:
+Before you begin, ensure your system meets the following requirements:
 
-- **Operating System**: Windows, macOS, or Linux
-- **Node.js**: Version 14 or above
-- **Database**: MongoDB or PostgreSQL
+- Node.js >= 14.x
+- npm >= 6.x
+- MySQL >= 5.7
+- Prisma CLI
+
 
 ## **Getting Started**
 
@@ -57,8 +62,13 @@ Follow these steps to set up and run the **NLP** web app:
 3. **Configure Environment Variables**:
     Create a `.env` file in the root directory and add the following:
     ```env
-    DATABASE_URL=your_database_url
+    DATABASE_URL="mysql://user:password@localhost:3306/nlp"
     NODE_ENV=development
+    ```
+
+4. **Run database migrations:**
+    ```bash
+    npx prisma migrate dev --name init
     ```
 
 ### **Running the Application**
@@ -72,6 +82,63 @@ Follow these steps to set up and run the **NLP** web app:
     Open your browser and navigate to `http://localhost:3000`.
 
 ### **Configuration**
+
+Configure your application using the `prisma.schema` file. Below is a brief overview of the schema used in NLP:
+
+### Prisma Schema
+
+```prisma
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  AGENCY_OWNER
+  AGENCY_ADMIN
+  SUBACCOUNT_USER
+  SUBACCOUNT_GUEST
+}
+
+enum Icon {
+  settings
+  chart
+  calendar
+  check
+  chip
+  compass
+  database
+  flag
+  home
+  info
+  link
+  lock
+  messages
+  notification
+  payment
+  power
+  receipt
+  shield
+  star
+  tune
+  videorecorder
+  wallet
+  warning
+  headphone
+  send
+  pipelines
+  person
+  category
+  contact
+  clipboardIcon
+}
+
+```
 
 Customize your application settings by editing the configuration files located in the `config` directory.
 
@@ -91,9 +158,28 @@ Customize your application settings by editing the configuration files located i
 
 {/* <Image src="/public/setup-guide.png" alt="Setup Guide" class="center" />  */}
 
-## **Congratulations!**
+## First Steps
 
-You have successfully set up the **NLP** web app. Now you can explore its features and start building powerful NLP solutions.
+### Create Your First User
+
+Upon starting the server, navigate to [http://localhost:3000](http://localhost:3000) and sign up as the first user, who will automatically become the Agency Owner.
+
+### Create an Agency
+
+After logging in, create your agency by providing necessary details like name, logo, and contact information.
+
+### Add Subaccounts
+
+Under your agency, create subaccounts to manage different projects or departments.
+
+### Assign Roles and Permissions
+
+Assign roles to users and set permissions to control access levels within your agency and subaccounts.
+
+## Conclusion
+
+Congratulations! You've successfully set up NLP. You're now ready to explore the powerful features of this application. Dive into managing your agencies and subaccounts efficiently and effectively. Stay tuned for more detailed guides and tutorials.
+
 
 ```js
 // Example of starting the server
