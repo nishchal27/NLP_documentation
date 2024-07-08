@@ -1,0 +1,328 @@
+---
+title: Core Components
+---
+
+<div class="core-container">
+  <h1 class="core-title">Core Components</h1>
+
+  <h2 class="core-section-title" id="overview">Overview</h2>
+  <p class="core-description">
+    The core components of the NLP SAAS web app are essential for its functionality. These components are designed to provide a seamless user experience and ensure efficient data management. In this section, we will explore each core component in detail.
+  </p>
+
+  <pre class="core-code">
+  ├── components
+  │   ├── Header.astro
+  │   ├── Footer.astro
+  │   ├── Sidebar.astro
+  │   ├── Dashboard.astro
+  │   └── ...
+  </pre>
+
+  <p class="core-description">
+    The `components` directory contains reusable components used across the app. These components are modular, making it easy to maintain and update the app.
+  </p>
+
+  <h3 class="core-subtitle">Header Component</h3>
+  <p class="core-description">
+    The `Header.astro` component provides the top navigation bar, including branding, navigation links, and user profile options.
+  </p>
+  <pre class="core-code">
+  ---
+  // Header.astro
+  ---
+
+  &lt;header&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  </pre>
+
+  <h3 class="core-subtitle">Footer Component</h3>
+  <p class="core-description">
+    The `Footer.astro` component includes site information, links to privacy policies, and contact details.
+  </p>
+  <pre class="core-code">
+  ---
+  // Footer.astro
+  ---
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2024 NLP SAAS App&lt;/p&gt;
+  &lt;/footer&gt;
+  </pre>
+
+  <h3 class="core-subtitle">Sidebar Component</h3>
+  <p class="core-description">
+    The `Sidebar.astro` component offers navigation options and quick links to various sections of the app.
+  </p>
+  <pre class="core-code">
+  ---
+  // Sidebar.astro
+  ---
+
+  &lt;aside&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/dashboard"&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/settings"&gt;Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+  </pre>
+
+  <h3 class="core-subtitle">Dashboard Component</h3>
+  <p class="core-description">
+    The `Dashboard.astro` component is the main interface for users to view and interact with the app's features.
+  </p>
+  <pre class="core-code">
+  ---
+  // Dashboard.astro
+  ---
+
+  &lt;div&gt;
+    &lt;h1&gt;Dashboard&lt;/h1&gt;
+    &lt;p&gt;Welcome to your dashboard.&lt;/p&gt;
+  &lt;/div&gt;
+  </pre>
+</div>
+
+<div class="core-container">
+  <h2 class="core-section-title" id="root-directory">Root Directory</h2>
+  <p class="core-description">
+    The root directory of the NLP SAAS web app contains the essential files and folders that are required for the app to function correctly.
+  </p>
+
+  <pre class="core-code">
+  ├── public
+  ├── src
+  ├── package.json
+  ├── astro.config.mjs
+  ├── tsconfig.json
+  └── README.md
+  </pre>
+
+  <p class="core-description">
+    The root directory includes configuration files such as `package.json`, `astro.config.mjs`, and `tsconfig.json`, along with the `public` and `src` directories which hold the public assets and source code respectively.
+  </p>
+
+  <h2 class="core-section-title" id="source-directory-src">Source Directory (`src`)</h2>
+  <p class="core-description">
+    The `src` directory is the main directory for the app's source code. It includes all the components, pages, and utility functions used in the app.
+  </p>
+
+  <pre class="core-code">
+  ├── src
+  │   ├── components
+  │   ├── pages
+  │   ├── layouts
+  │   └── utils
+  </pre>
+
+  <p class="core-description">
+    The `components` directory contains reusable UI components, the `pages` directory holds all the page components, the `layouts` directory includes layout components, and the `utils` directory stores utility functions.
+  </p>
+
+  <h3 class="core-subtitle">Components</h3>
+  <p class="core-description">
+    The `components` directory contains reusable components that can be used throughout the app. These components help in building the UI efficiently and consistently.
+  </p>
+
+  <h3 class="core-subtitle">Pages</h3>
+  <p class="core-description">
+    The `pages` directory includes all the page components that represent different routes in the app. Each file in this directory corresponds to a specific route.
+  </p>
+
+  <h3 class="core-subtitle">Layouts</h3>
+  <p class="core-description">
+    The `layouts` directory holds layout components that define the overall structure of the app's pages. These components help in maintaining a consistent layout across different pages.
+  </p>
+
+  <h3 class="core-subtitle">Utils</h3>
+  <p class="core-description">
+    The `utils` directory contains utility functions that can be used throughout the app. These functions help in performing common tasks and keeping the codebase organized.
+  </p>
+</div>
+
+<div class="core-container">
+  <h2 class="core-section-title" id="configuration-files">Configuration Files</h2>
+  <p class="core-description">
+    The configuration files in the root directory are crucial for the app's setup and functionality. These files include `package.json`, `astro.config.mjs`, and `tsconfig.json`.
+  </p>
+
+  <pre class="core-code">
+  ```json
+  // package.json
+{
+  "name": "novalivepage",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^4.29.7",
+    "@clerk/themes": "^1.7.9",
+    "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^5.9.1",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-aspect-ratio": "^1.0.3",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-collapsible": "^1.0.3",
+    "@radix-ui/react-context-menu": "^2.1.5",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-hover-card": "^1.0.7",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-menubar": "^1.0.4",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-progress": "^1.0.3",
+    "@radix-ui/react-radio-group": "^1.1.3",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slider": "^1.1.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-toggle": "^1.0.3",
+    "@radix-ui/react-toggle-group": "^1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@stripe/react-stripe-js": "^2.7.0",
+    "@stripe/stripe-js": "^3.3.0",
+    "@tanstack/react-table": "^8.15.3",
+    "@tremor/react": "^3.14.1",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    "@uploadthing/react": "^6.2.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "cmdk": "^0.2.1",
+    "date-fns": "^3.3.1",
+    "embla-carousel-react": "^8.0.0-rc22",
+    "lucide-react": "^0.323.0",
+    "next": "14.1.0",
+    "next-themes": "^0.2.1",
+    "prisma": "^5.9.1",
+    "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-day-picker": "^8.10.0",
+    "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
+    "react-resizable-panels": "^2.0.3",
+    "sonner": "^1.4.0",
+    "stripe": "^15.2.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "uploadthing": "^6.3.3",
+    "uuid": "^9.0.1",
+    "vaul": "^0.9.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+```
+```json
+  // tsconfig.json
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+  </pre>
+
+  <p class="core-description">
+    The `package.json` file includes the app's metadata, dependencies, and scripts. The `astro.config.mjs` file contains Astro-specific configuration, and the `tsconfig.json` file configures TypeScript settings for the project.
+  </p>
+</div>
+
+<div class="core-container">
+  <h2 class="core-section-title" id="public-directory">Public Directory</h2>
+  <p class="core-description">
+    The `public` directory holds static assets such as images, fonts, and other files that need to be publicly accessible.
+  </p>
+
+  <pre class="core-code">
+  ├── public
+  │   ├── favicon.ico
+  │   ├── robots.txt
+  │   └── images
+  │       ├── logo.png
+  │       └── banner.jpg
+  </pre>
+
+  <p class="core-description">
+    The `public` directory is directly served to the client, and its contents are accessible via the root URL of the app.
+  </p>
+</div>
+
+<div class="core-container">
+  <h2 class="core-section-title" id="database-directory">Database Directory</h2>
+  <p class="core-description">
+    The `database` directory contains scripts and configurations related to the app's database. It ensures that the database setup and management are well-organized and easy to maintain.
+  </p>
+
+  <pre class="core-code">
+  ├── database
+  │   ├── migrations
+  │   │   ├── 001_initial.sql
+  │   │   └── 002_add_users.sql
+  │   ├── seeds
+  │   │   └── seed_users.sql
+  │   └── db-config.js
+  </pre>
+
+  <p class="core-description">
+    The `migrations` directory contains SQL files for database schema changes, the `seeds` directory holds scripts for populating the database with initial data, and the `db-config.js` file includes database connection configurations.
+  </p>
+</div>
+
+<div class="core-container">
+  <h2 class="core-section-title" id="conclusion">Conclusion</h2>
+  <p class="core-description">
+    In this section, we have explored the core components of the NLP SAAS web app, including the directory structure and key files. Understanding these components is essential for effectively developing and maintaining the app.
+  </p>
+</div>

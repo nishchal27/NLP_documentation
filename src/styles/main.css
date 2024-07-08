@@ -55,4 +55,45 @@
 .o-file {
     color: #2196F3;
 }
-  
+ 
+
+/* Core Components css */
+.core-container {
+  /* background-color: #f7f9fc; */
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.core-title {
+  color: #2a9d8f;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.core-section-title {
+  color: #e76f51;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.core-subtitle {
+  color: #264653;
+  font-size: 1.2rem;
+  margin-top: 15px;
+}
+
+.core-code {
+  background-color: #2d3748;
+  color: #f7fafc;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.core-description {
+  color: #6c757d;
+  margin-top: 10px;
+  line-height: 1.6;
+}
