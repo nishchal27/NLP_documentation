@@ -1,0 +1,142 @@
+---
+title: API Module
+description: Detailed documentation of the API Module in the SAAS web app "NLP".
+---
+
+# API Module
+
+The API Module provides endpoints for various functionalities within the SAAS web app "NLP". This section outlines the structure and functionality of each API endpoint available.
+
+## Table of Contents
+- [Overview](#overview)
+- [Stripe Webhook Endpoint](#stripe-webhook-endpoint)
+- [Stripe API Endpoints](#stripe-api-endpoints)
+- [UploadThing API](#uploadthing-api)
+
+## <span class="api-section-title" id="overview">Overview</span>
+
+The API Module consists of several endpoints that handle different aspects of the application's functionality, including payment processing, data management, and integrations with third-party services.
+
+## <span class="api-section-title" id="stripe-webhook-endpoint">Stripe Webhook Endpoint</span>
+
+### Webhook Handling for Stripe Payments and Connect Processes
+
+The webhook endpoint located in the **stripe/webhook/route.ts** file handles events triggered by Stripe, such as payment and subscription updates.
+
+```typescript
+<code class="api-code">
+import { NextRequest, NextResponse } from 'next/server'
+import { headers } from 'next/headers'
+import Stripe from 'stripe'
+import { stripe } from '@/lib/stripe'
+import { subscriptionCreated } from '@/lib/stripe/stripe-actions'
+
+const stripeWebhookEvents = new Set([
+  'product.created',
+  'product.updated',
+  'price.created',
+  'price.updated',
+  'checkout.session.completed',
+  'customer.subscription.created',
+  'customer.subscription.updated',
+  'customer.subscription.deleted',
+])
+
+export async function POST(req: NextRequest) {
+  let stripeEvent: Stripe.Event
+  const body = await req.text()
+  const sig = headers().get('Stripe-Signature')
+  const webhookSecret =
+    process.env.STRIPE_WEBHOOK_SECRET_LIVE ?? process.env.STRIPE_WEBHOOK_SECRET
+  try {
+    if (!sig || !webhookSecret) {
+      console.log(
+        '🔴 Error Stripe webhook secret or the signature does not exist.'
+      )
+      return
+    }
+    stripeEvent = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+  } catch (error: any) {
+    console.log(`🔴 Error ${error.message}`)
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
+  }
+
+  try {
+    if (stripeWebhookEvents.has(stripeEvent.type)) {
+      const subscription = stripeEvent.data.object as Stripe.Subscription
+      if (
+        !subscription.metadata.connectAccountPayments &&
+        !subscription.metadata.connectAccountSubscriptions
+      ) {
+        switch (stripeEvent.type) {
+          case 'customer.subscription.created':
+          case 'customer.subscription.updated': {
+            if (subscription.status === 'active') {
+              await subscriptionCreated(
+                subscription,
+                subscription.customer as string
+              )
+              console.log('CREATED FROM WEBHOOK 💳', subscription)
+            } else {
+              console.log(
+                'SKIPPED AT CREATED FROM WEBHOOK 💳 because subscription status is not active',
+                subscription
+              )
+              break
+            }
+          }
+          default:
+            console.log('👉🏻 Unhandled relevant event!', stripeEvent.type)
+        }
+      } else {
+        console.log(
+          'SKIPPED FROM WEBHOOK 💳 because subscription was from a connected account not for the application',
+          subscription
+        )
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return new NextResponse('🔴 Webhook Error', { status: 400 })
+  }
+  return NextResponse.json(
+    {
+      webhookActionReceived: true,
+    },
+    {
+      status: 200,
+    }
+  )
+}
+</code>
+```
+
+## <span class="api-section-title" id="stripe-api-endpoints">Stripe API Endpoints</span>
+
+### Stripe API Endpoints Overview
+
+The Stripe API endpoints are organized under the **stripe/** directory, each handling specific functionalities such as creating checkout sessions, customers, and subscriptions.
+
+- **create-checkout-session/route.ts**: Endpoint for creating Stripe checkout sessions.
+- **create-customer/route.ts**: Endpoint for creating Stripe customers.
+- **create-subscription/route.ts**: Endpoint for creating Stripe subscriptions.
+
+These endpoints utilize the Stripe library and handle requests related to payment processing and customer management.
+
+## <span class="api-section-title" id="uploadthing-api">UploadThing API</span>
+
+### UploadThing API Overview
+
+The UploadThing API, located in the **uploadthing/** directory, provides endpoints for handling file uploads and core functionalities of the "UploadThing" service.
+
+- **core.ts**: Core functionality and utilities for the UploadThing service.
+- **route.ts**: API endpoints for managing file uploads and related operations.
+
+This API module integrates seamlessly with the main application to facilitate file management and data storage capabilities.
+
+---
+
+This concludes the documentation for the API Module in the SAAS web app "NLP". For any questions or further assistance, please contact our support team.
+```
+
+This MDX document comprehensively covers the API Module, including detailed descriptions and code snippets for each endpoint and functionality provided.

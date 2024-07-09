@@ -59,7 +59,6 @@
 
 /* Core Components css */
 .core-container {
-  /* background-color: #f7f9fc; */
   padding: 20px;
   border-radius: 10px;
   font-family: Arial, sans-serif;
@@ -96,4 +95,39 @@
   color: #6c757d;
   margin-top: 10px;
   line-height: 1.6;
+}
+
+
+/* SubAccount Module css */
+.subAcc-section-title {
+  color: #3498db;
+  font-weight: bold;
+}
+.subAcc-subtitle {
+  color: #2ecc71;
+  font-size: 1.2em;
+}
+.subAcc-code {
+  background-color: #f0f0f0;
+  border-left: 4px solid #3498db;
+  padding: 10px;
+}
+.subAcc-model {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* api Module css  */
+.api-section-title {
+  color: #3498db;
+  font-weight: bold;
+}
+.api-subtitle {
+  color: #2ecc71;
+  font-size: 1.2em;
+}
+.api-code {
+  background-color: #f0f0f0;
+  border-left: 4px solid #3498db;
+  padding: 10px;
 }

@@ -1,0 +1,295 @@
+---
+title: Subaccount Module
+description: Detailed documentation of the Subaccount Module in the SAAS web app "NLP".
+---
+
+# Subaccount Module
+
+The Subaccount Module allows agencies to manage their subaccounts efficiently. This module includes features such as creating, updating, and managing subaccounts, along with related functionalities like permissions, pipelines, triggers, and automations.
+
+## Table of Contents
+- [Overview](#overview)
+- [Subaccount Model](#subaccount-model)
+- [Permissions Model](#permissions-model)
+- [Pipeline Model](#pipeline-model)
+- [Tag Model](#tag-model)
+- [Trigger and Automation Models](#trigger-and-automation-models)
+- [Related Models](#related-models)
+
+
+## <span class="subAcc-section-title" id="overview">Overview</span>
+
+The Subaccount Module enables agencies to create multiple subaccounts. Each subaccount can have its own settings, users, and data. This allows agencies to manage different clients or departments within a single system.
+
+## <span class="subAcc-section-title" id="subaccount-model">Subaccount Model</span>
+
+The Subaccount model defines the structure of a subaccount within the system.
+
+```prisma
+<code class="subAcc-code">
+model SubAccount {
+  id               String                    @id @default(uuid())
+  connectAccountId String?                   @default("")
+  name             String
+  subAccountLogo   String                    @db.Text
+  createdAt        DateTime                  @default(now())
+  updatedAt        DateTime                  @updatedAt
+  companyEmail     String                    @db.Text
+  companyPhone     String
+  goal             Int                       @default(5)
+  address          String
+  city             String
+  zipCode          String
+  state            String
+  country          String
+  agencyId         String
+  Agency           Agency                    @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  SidebarOption    SubAccountSidebarOption[]
+  Permissions      Permissions[]
+  Funnels          Funnel[]
+  Media            Media[]
+  Contact          Contact[]
+  Trigger          Trigger[]
+  Automation       Automation[]
+  Pipeline         Pipeline[]
+  Tags             Tag[]
+  Notification     Notification[]
+
+  @@index([agencyId])
+}
+</code>
+```
+
+## <span class="subAcc-section-title" id="permissions-model">Permissions Model</span>
+
+The Permissions model defines the access controls for users within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Permissions {
+  id           String     @id @default(uuid())
+  email        String
+  User         User       @relation(fields: [email], references: [email], onDelete: Cascade)
+  subAccountId String
+  SubAccount   SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  access       Boolean
+
+  @@index([subAccountId])
+  @@index([email])
+}
+</code>
+```
+
+## <span class="subAcc-section-title" id="pipeline-model">Pipeline Model</span>
+
+The Pipeline model is used to create and manage kanban boards for tasks and projects within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Pipeline {
+  id           String     @id @default(uuid())
+  name         String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Lane         Lane[]
+  SubAccount   SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  subAccountId String
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+## <span class="subAcc-section-title" id="tag-model">Tag Model</span>
+
+The Tag model allows users to categorize and prioritize tasks or tickets within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Tag {
+  id           String   @id @default(uuid())
+  name         String
+  color        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  subAccountId String
+
+  SubAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  Ticket     Ticket[]
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+## <span class="subAcc-section-title" id="trigger-and-automation-models">Trigger and Automation Models</span>
+
+The Trigger model defines various triggers that can initiate automations within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Trigger {
+  id           String       @id @default(uuid())
+  name         String
+  type         TriggerTypes
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  subAccountId String
+  Subaccount   SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  Automations  Automation[]
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+The Automation model defines the actions that should be taken when a trigger is activated.
+
+```prisma
+<code class="subAcc-code">
+model Automation {
+  id                 String               @id @default(uuid())
+  name               String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  triggerId          String?
+  published          Boolean              @default(false)
+  Trigger            Trigger?             @relation(fields: [triggerId], references: [id], onDelete: Cascade)
+  subAccountId       String
+  Subaccount         SubAccount           @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  Action             Action[]
+  AutomationInstance AutomationInstance[]
+
+  @@index([triggerId])
+  @@index([subAccountId])
+}
+</code>
+```
+
+## <span class="subAcc-section-title" id="related-models">Related Models</span>
+
+### Lane Model
+
+The Lane model represents a column in the kanban board within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Lane {
+  id         String   @id @default(uuid())
+  name       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Pipeline   Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  pipelineId String
+  Tickets    Ticket[]
+  order      Int      @default(0)
+
+  @@index([pipelineId])
+}
+</code>
+```
+
+### Ticket Model
+
+The Ticket model represents tasks or items within a lane on the kanban board.
+
+```prisma
+<code class="subAcc-code">
+model Ticket {
+  id          String   @id @default(uuid())
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  laneId      String
+  order       Int      @default(0)
+  Lane        Lane     @relation(fields: [laneId], references: [id], onDelete: Cascade)
+  value       Decimal?
+  description String?
+  Tags        Tag[]
+
+  customerId String?
+  Customer   Contact? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  assignedUserId String?
+  Assigned       User?   @relation(fields: [assignedUserId], references: [id], onDelete: SetNull)
+
+  @@index([laneId])
+  @@index([customerId])
+  @@index([assignedUserId])
+}
+</code>
+```
+
+### Contact Model
+
+The Contact model manages leads and customers within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Contact {
+  id           String   @id @default(uuid())
+  name         String
+  email        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  subAccountId String
+
+  Subaccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  Ticket     Ticket[]
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+### Media Model
+
+The Media model manages media files associated with a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Media {
+  id           String     @id @default(uuid())
+  type         String?
+  name         String
+  link         String     @unique
+  subAccountId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Subaccount   SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+### Funnel Model
+
+The Funnel model manages sales funnels and associated data within a subaccount.
+
+```prisma
+<code class="subAcc-code">
+model Funnel {
+  id            String       @id @default(uuid())
+  name          String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  description   String?
+  published     Boolean      @default(false)
+  subDomainName String?     
+
+ @unique
+  subAccountId  String
+  SubAccount    SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  Page          Page[]
+  Form          Form[]
+
+  @@index([subAccountId])
+}
+</code>
+```
+
+---
+
+This documentation provides a comprehensive guide to the Subaccount Module in the SAAS web app "NLP". For further assistance or queries, please contact our support team.
+```

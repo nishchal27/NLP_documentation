@@ -18,6 +18,8 @@ export default defineConfig({
             { label: "Introduction", link: "/code-docs/introduction/" },
             { label: "Folder Structure", link: "/code-docs/folder-structure/" },
             { label: "Core Components", link: "/code-docs/core-components/" },
+            { label: "Sub Account", link: "/code-docs/sub-account/" },
+            { label: "API", link: "/code-docs/api/" },
             { label: "Code Documentation", link: "/code-docs/example/" },
           ],
         },
