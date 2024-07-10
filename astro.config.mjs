@@ -20,6 +20,8 @@ export default defineConfig({
             { label: "Core Components", link: "/code-docs/core-components/" },
             { label: "Sub Account", link: "/code-docs/sub-account/" },
             { label: "API", link: "/code-docs/api/" },
+            { label: "Components", link: "/code-docs/components/" },
+            { label: "Lib and Utils", link: "/code-docs/libraries-utilities/" },
             { label: "Code Documentation", link: "/code-docs/example/" },
           ],
         },

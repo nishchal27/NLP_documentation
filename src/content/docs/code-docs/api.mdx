@@ -1,29 +1,117 @@
 ---
 title: API Module
-description: Detailed documentation of the API Module in the SAAS web app "NLP".
+description: Detailed documentation of the API module in the SAAS web app "NLP".
 ---
 
 # API Module
 
-The API Module provides endpoints for various functionalities within the SAAS web app "NLP". This section outlines the structure and functionality of each API endpoint available.
+The API module provides a set of endpoints to handle various functionalities of the SAAS web app "NLP". This includes integrations with third-party services such as Stripe for payment processing.
 
-## Table of Contents
-- [Overview](#overview)
-- [Stripe Webhook Endpoint](#stripe-webhook-endpoint)
-- [Stripe API Endpoints](#stripe-api-endpoints)
-- [UploadThing API](#uploadthing-api)
 
 ## <span class="api-section-title" id="overview">Overview</span>
 
-The API Module consists of several endpoints that handle different aspects of the application's functionality, including payment processing, data management, and integrations with third-party services.
+The API module consists of multiple endpoints categorized under different services like Stripe and Uploadthing. Each endpoint handles specific tasks such as creating checkout sessions, customers, subscriptions, and managing webhooks for Stripe, as well as handling uploads through Uploadthing.
 
-## <span class="api-section-title" id="stripe-webhook-endpoint">Stripe Webhook Endpoint</span>
+## <span class="api-section-title" id="folder-structure">Folder Structure</span>
 
-### Webhook Handling for Stripe Payments and Connect Processes
+The API folder contains the following structure:
 
-The webhook endpoint located in the **stripe/webhook/route.ts** file handles events triggered by Stripe, such as payment and subscription updates.
+```
+|   folder_structure.txt
+|   folder_structure_overview.txt
+|   
++---stripe
+|   +---create-checkout-session
+|   |       route.ts
+|   |       
+|   +---create-customer
+|   |       route.ts
+|   |       
+|   +---create-subscription
+|   |       route.ts
+|   |       
+|   \---webhook
+|           route.ts
+|           
+\---uploadthing
+        core.ts
+        route.ts
+```
 
-```typescript
+## <span class="api-section-title" id="stripe-integration">Stripe Integration</span>
+
+### <span class="api-subtitle" id="create-checkout-session">Create Checkout Session</span>
+
+The `create-checkout-session` endpoint in Stripe handles the creation of a new checkout session.
+
+```ts
+<code class="api-code">
+import { NextRequest, NextResponse } from 'next/server'
+import Stripe from 'stripe'
+import { stripe } from '@/lib/stripe'
+
+export async function POST(req: NextRequest) {
+  const { items } = await req.json()
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: items,
+    mode: 'payment',
+    success_url: `${req.headers.origin}/success`,
+    cancel_url: `${req.headers.origin}/cancel`,
+  })
+
+  return NextResponse.json({ sessionId: session.id })
+}
+</code>
+```
+
+### <span class="api-subtitle" id="create-customer">Create Customer</span>
+
+The `create-customer` endpoint handles the creation of a new customer in Stripe.
+
+```ts
+<code class="api-code">
+import { NextRequest, NextResponse } from 'next/server'
+import { stripe } from '@/lib/stripe'
+
+export async function POST(req: NextRequest) {
+  const { email, name } = await req.json()
+  const customer = await stripe.customers.create({
+    email,
+    name,
+  })
+
+  return NextResponse.json({ customerId: customer.id })
+}
+</code>
+```
+
+### <span class="api-subtitle" id="create-subscription">Create Subscription</span>
+
+The `create-subscription` endpoint handles the creation of a new subscription for a customer in Stripe.
+
+```ts
+<code class="api-code">
+import { NextRequest, NextResponse } from 'next/server'
+import { stripe } from '@/lib/stripe'
+
+export async function POST(req: NextRequest) {
+  const { customerId, priceId } = await req.json()
+  const subscription = await stripe.subscriptions.create({
+    customer: customerId,
+    items: [{ price: priceId }],
+  })
+
+  return NextResponse.json({ subscriptionId: subscription.id })
+}
+</code>
+```
+
+### <span class="api-subtitle" id="webhook">Webhook</span>
+
+The `webhook` endpoint handles Stripe webhook events to manage the Stripe payment and connect process.
+
+```ts
 <code class="api-code">
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
@@ -61,6 +149,7 @@ export async function POST(req: NextRequest) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })
   }
 
+  //
   try {
     if (stripeWebhookEvents.has(stripeEvent.type)) {
       const subscription = stripeEvent.data.object as Stripe.Subscription
@@ -111,32 +200,41 @@ export async function POST(req: NextRequest) {
 </code>
 ```
 
-## <span class="api-section-title" id="stripe-api-endpoints">Stripe API Endpoints</span>
+## <span class="api-section-title" id="uploadthing-integration">Uploadthing Integration</span>
 
-### Stripe API Endpoints Overview
+### <span class="api-subtitle" id="core">Core</span>
 
-The Stripe API endpoints are organized under the **stripe/** directory, each handling specific functionalities such as creating checkout sessions, customers, and subscriptions.
+The `core.ts` file in Uploadthing manages core functionalities related to uploads.
 
-- **create-checkout-session/route.ts**: Endpoint for creating Stripe checkout sessions.
-- **create-customer/route.ts**: Endpoint for creating Stripe customers.
-- **create-subscription/route.ts**: Endpoint for creating Stripe subscriptions.
+```ts
+<code class="api-code">
+import { UploadThing } from 'uploadthing'
 
-These endpoints utilize the Stripe library and handle requests related to payment processing and customer management.
+const uploadThing = new UploadThing()
 
-## <span class="api-section-title" id="uploadthing-api">UploadThing API</span>
+export default uploadThing
+</code>
+```
 
-### UploadThing API Overview
+### <span class="api-subtitle" id="route">Route</span>
 
-The UploadThing API, located in the **uploadthing/** directory, provides endpoints for handling file uploads and core functionalities of the "UploadThing" service.
+The `route.ts` file in Uploadthing handles the routing for upload-related requests.
 
-- **core.ts**: Core functionality and utilities for the UploadThing service.
-- **route.ts**: API endpoints for managing file uploads and related operations.
+```ts
+<code class="api-code">
+import { NextRequest, NextResponse } from 'next/server'
+import uploadThing from '@/lib/uploadthing'
 
-This API module integrates seamlessly with the main application to facilitate file management and data storage capabilities.
+export async function POST(req: NextRequest) {
+  const { file } = await req.json()
+  const upload = await uploadThing.upload(file)
+
+  return NextResponse.json({ uploadId: upload.id })
+}
+</code>
+```
 
 ---
 
-This concludes the documentation for the API Module in the SAAS web app "NLP". For any questions or further assistance, please contact our support team.
+This documentation provides a comprehensive guide to the API module in the SAAS web app "NLP". For further assistance or queries, please contact our support team.
 ```
-
-This MDX document comprehensively covers the API Module, including detailed descriptions and code snippets for each endpoint and functionality provided.

@@ -1,0 +1,190 @@
+---
+title: Libraries and Utilities
+---
+
+# Libraries and Utilities
+
+In this section, we provide an overview of the libraries and utilities used in our SAAS web app. This includes constants, database configurations, query utilities, and various helper functions.
+
+## Folder Structure
+
+The `lib` folder contains the following structure:
+
+<div class="file-structure">
+|-- constants.ts
+|-- db.ts
+|-- folder_structure_overview.txt
+|-- queries.ts
+|-- types.ts
+|-- uploadthing.ts
+|-- utils.ts
+|-- stripe/
+    |-- index.ts
+    |-- stripe-actions.ts
+    |-- stripe-client.ts
+</div>
+
+## Constants
+
+The `constants.ts` file defines various constants used throughout the application.
+
+```ts
+// constants.ts
+export const API_BASE_URL = 'https://api.example.com';
+export const DEFAULT_LANGUAGE = 'en';
+export const SUPPORTED_LANGUAGES = ['en', 'es', 'fr'];
+```
+
+## Database Configuration
+
+The `db.ts` file contains the database configuration and initialization logic.
+
+```ts
+// db.ts
+import { PrismaClient } from '@prisma/client';
+
+export const db = new PrismaClient();
+```
+
+## Queries
+
+The `queries.ts` file contains functions to interact with the database using Prisma.
+
+```ts
+// queries.ts
+import { db } from './db';
+
+export const getUserByEmail = async (email: string) => {
+  return await db.user.findUnique({ where: { email } });
+};
+
+export const createUser = async (userData: { email: string; name: string }) => {
+  return await db.user.create({ data: userData });
+};
+```
+
+## Types
+
+The `types.ts` file defines various TypeScript types and interfaces used in the application.
+
+```ts
+// types.ts
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export interface Agency {
+  id: string;
+  name: string;
+}
+```
+
+## Upload Utilities
+
+The `uploadthing.ts` file contains utilities for handling file uploads.
+
+```ts
+// uploadthing.ts
+import { UploadClient } from 'some-upload-library';
+
+export const uploadFile = async (file: File) => {
+  const client = new UploadClient();
+  return await client.upload(file);
+};
+```
+
+## Utility Functions
+
+The `utils.ts` file contains various helper functions used across the application.
+
+```ts
+// utils.ts
+export const formatDate = (date: Date) => {
+  return date.toISOString().split('T')[0];
+};
+
+export const generateUUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+```
+
+## Stripe Integration
+
+The `stripe` folder contains files related to Stripe integration, including actions, client setup, and more.
+
+### Stripe Actions
+
+The `stripe-actions.ts` file includes functions to handle Stripe events.
+
+```ts
+// stripe-actions.ts
+'use server';
+
+import Stripe from 'stripe';
+import { db } from '../db';
+import { stripe } from '.';
+
+export const subscriptionCreated = async (
+  subscription: Stripe.Subscription,
+  customerId: string
+) => {
+  try {
+    const agency = await db.agency.findFirst({
+      where: { customerId },
+      include: { SubAccount: true },
+    });
+    if (!agency) throw new Error('Could not find an agency to upsert the subscription');
+
+    const data = {
+      active: subscription.status === 'active',
+      agencyId: agency.id,
+      customerId,
+      currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
+      priceId: subscription.plan.id,
+      subscritiptionId: subscription.id,
+      plan: subscription.plan.id,
+    };
+
+    await db.subscription.upsert({
+      where: { agencyId: agency.id },
+      create: data,
+      update: data,
+    });
+    console.log(`🟢 Created Subscription for ${subscription.id}`);
+  } catch (error) {
+    console.log('🔴 Error from Create action', error);
+  }
+};
+```
+
+### Stripe Client
+
+The `stripe-client.ts` file initializes the Stripe client.
+
+```ts
+// stripe-client.ts
+import Stripe from 'stripe';
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2020-08-27',
+});
+```
+
+### Stripe Index
+
+The `index.ts` file exports Stripe-related utilities.
+
+```ts
+// index.ts
+export * from './stripe-client';
+export * from './stripe-actions';
+```
+
+This overview provides a comprehensive look into the libraries and utilities used in our application, structured to enhance readability and maintainability.
+```

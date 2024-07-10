@@ -117,17 +117,58 @@
   font-weight: bold;
 }
 
+
 /* api Module css  */
 .api-section-title {
-  color: #3498db;
+  color: #e67e22;
   font-weight: bold;
 }
 .api-subtitle {
-  color: #2ecc71;
+  color: #3498db;
   font-size: 1.2em;
 }
 .api-code {
-  background-color: #f0f0f0;
-  border-left: 4px solid #3498db;
+  background-color: #f5f5f5;
+  border-left: 4px solid #e67e22;
   padding: 10px;
 }
+
+/* Component Module css  */
+.comp-section-title {
+  color: #e67e22;
+  font-weight: bold;
+}
+.comp-subtitle {
+  color: #3498db;
+  font-size: 1.2em;
+}
+.comp-code {
+  background-color: #f5f5f5;
+  border-left: 4px solid #e67e22;
+  padding: 10px;
+}
+
+
+/* libraries and utilities css */
+  .section-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #2c3e50;
+  }
+
+  .code-block {
+    background-color: #2d3748;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .file-structure {
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre;
+    background-color: #2a2a28;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
