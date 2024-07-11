@@ -1,0 +1,99 @@
+---
+title: Providers
+---
+
+# Providers
+
+## Introduction
+
+Providers are essential in managing and maintaining various services required by the application. They help in modularizing and organizing the code, making it easier to maintain and extend. This section covers the providers used in the application.
+
+## Authentication Provider
+
+### ClerkProvider
+
+The `ClerkProvider` handles user authentication, ensuring that only authenticated users can access certain parts of the application. Below is the configuration for `ClerkProvider`.
+
+```typescript
+import { ClerkProvider } from '@clerk/nextjs';
+
+const MyApp = ({ Component, pageProps }) => (
+    <ClerkProvider {...pageProps}>
+        <Component {...pageProps} />
+    </ClerkProvider>
+);
+
+export default MyApp;
+```
+
+## Database Provider
+
+### PrismaProvider
+
+The `PrismaProvider` manages the database connections and queries using Prisma. Here is the setup for the `PrismaProvider`.
+
+```typescript
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export const PrismaProvider = ({ children }) => {
+    return (
+        <PrismaContext.Provider value={prisma}>
+            {children}
+        </PrismaContext.Provider>
+    );
+};
+```
+
+## State Management Provider
+
+### React Context
+
+React Context is used for state management across the application. Below is an example of how to set up a context provider.
+
+```typescript
+import { createContext, useContext, useState } from 'react';
+
+const StateContext = createContext();
+
+export const StateProvider = ({ children }) => {
+    const [state, setState] = useState({});
+
+    return (
+        <StateContext.Provider value={{ state, setState }}>
+            {children}
+        </StateContext.Provider>
+    );
+};
+
+export const useStateContext = () => useContext(StateContext);
+```
+
+## Payment Provider
+
+### StripeProvider
+
+The `StripeProvider` handles all payment-related functionalities. Here is an example setup.
+
+```typescript
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('your-publishable-key-here');
+
+const MyApp = ({ Component, pageProps }) => (
+    <Elements stripe={stripePromise}>
+        <Component {...pageProps} />
+    </Elements>
+);
+
+export default MyApp;
+```
+
+## Conclusion
+
+Providers play a crucial role in the application's architecture by managing and encapsulating various services. This approach ensures better code organization and maintainability.
+
+```mdx
+```

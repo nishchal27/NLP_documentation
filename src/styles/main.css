@@ -172,3 +172,101 @@
     border-radius: 5px;
     margin-top: 10px;
   }
+
+
+/* Providers CSS  */
+  .prov-section-title {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 5px;
+}
+
+.prov-subsection-title {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #16a085;
+    padding-left: 10px;
+}
+
+.prov-code-block {
+    background-color: #f5f5f5;
+    border-left: 4px solid #3498db;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.prov-code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+
+/* Tests CSS  */
+.test-section-title {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 5px;
+}
+
+.test-subsection-title {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #16a085;
+    padding-left: 10px;
+}
+
+.test-code-block {
+    background-color: #f5f5f5;
+    border-left: 4px solid #3498db;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.test-code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.test-note {
+    font-style: italic;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+/* middleware CSS  */
+.mid-section-title {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 5px;
+}
+
+.mid-code-block {
+    /* background-color: #0a0808; */
+    border-left: 4px solid #3498db;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.mid-code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.mid-note {
+    font-style: italic;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}

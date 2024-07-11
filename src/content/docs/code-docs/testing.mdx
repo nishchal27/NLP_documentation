@@ -1,0 +1,99 @@
+---
+title: Testing
+---
+
+# Testing
+
+## Introduction
+
+Testing is a crucial aspect of software development, ensuring that the application works as expected and helping to identify and fix issues early. This section covers Unit Tests, Integration Tests, and End-to-End Tests.
+
+## Unit Tests
+
+### Overview
+
+Unit tests focus on individual components or functions, ensuring that each part of the application behaves as expected. They are typically fast and isolated, making them ideal for catching issues early in the development process.
+
+### Example
+
+Here's an example of a unit test for a simple function using Jest.
+
+```typescript
+import { sum } from './sum';
+
+test('adds 1 + 2 to equal 3', () => {
+    expect(sum(1, 2)).toBe(3);
+});
+```
+
+### Running Unit Tests
+
+To run unit tests, use the following command:
+
+```bash
+npm run test
+```
+
+## Integration Tests
+
+### Overview
+
+Integration tests focus on the interaction between different parts of the application. They ensure that various modules work together as expected. These tests are broader than unit tests and can catch issues that arise from the interaction between components.
+
+### Example
+
+Here's an example of an integration test using Jest and React Testing Library.
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { App } from './App';
+
+test('renders learn react link', () => {
+    render(<App />);
+    const linkElement = screen.getByText(/learn react/i);
+    expect(linkElement).toBeInTheDocument();
+});
+```
+
+### Running Integration Tests
+
+To run integration tests, use the same command as for unit tests:
+
+```bash
+npm run test
+```
+
+## End-to-End Tests
+
+### Overview
+
+End-to-End (E2E) tests simulate real user scenarios, testing the entire application from start to finish. These tests ensure that the application works as a whole and can catch issues that other types of tests might miss.
+
+### Example
+
+Here's an example of an end-to-end test using Cypress.
+
+```javascript
+describe('My First Test', () => {
+    it('Visits the app root url', () => {
+        cy.visit('/');
+        cy.contains('h1', 'Welcome to Your Vue.js + TypeScript App');
+    });
+});
+```
+
+### Running End-to-End Tests
+
+To run end-to-end tests, use the following command:
+
+```bash
+npx cypress open
+```
+
+## Conclusion
+
+Testing is an integral part of the development process, helping to ensure the reliability and quality of the application. By incorporating unit tests, integration tests, and end-to-end tests, you can catch issues early and maintain a high standard of code quality.
+```
+
+This MDX file includes custom CSS styles for the Testing section, ensuring clarity and a consistent design.

@@ -1,0 +1,84 @@
+---
+title: Middleware
+---
+
+# Middleware
+
+## Introduction
+
+Middleware in Next.js is a powerful feature that allows you to run code before a request is completed. This can be used for authentication, logging, rewriting URLs, and more. In this section, we'll look at an example of middleware that uses the Clerk authentication library to protect routes and manage custom subdomains.
+
+## Middleware Example
+
+Here is an example of middleware using the Clerk authentication library:
+
+<div class="mid-code-block">
+<pre>
+```ts
+import { authMiddleware } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+
+// This example protects all routes including api/trpc routes
+// Please edit this to allow other routes to be public as needed.
+// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
+export default authMiddleware({
+  publicRoutes: ['/site', '/api/uploading'],
+  async beforeAuth(auth, req) { },
+  async afterAuth(auth, req) {
+    //rewrite for domains
+    const url = req.nextUrl
+    const searchParams = url.searchParams.toString()
+    let hostname = req.headers
+
+    const pathWithSearchParams = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ''}`
+
+    //if subdomain exists
+    const customSubDomain = hostname.get('host')?.split(`${process.env.NEXT_PUBLIC_DOMAIN}`).filter(Boolean)[0];
+
+    if (customSubDomain) {
+      return NextResponse.rewrite(new URL(`/${customSubDomain}${pathWithSearchParams}`, req.url))
+    }
+
+    if (url.pathname === "/sign-in" || url.pathname === "/sign-up") {
+      return NextResponse.redirect(new URL(`/agency/sign-in`, req.url))
+    }
+
+    if (url.pathname === "/" || url.pathname === "/site" && url.host === process.env.NEXT_PUBLIC_DOMAIN) {
+      return NextResponse.rewrite(new URL('/site', req.url))
+    }
+
+    if (url.pathname.startsWith('/agency') ||
+      url.pathname.startsWith('/subaccount')
+    ) {
+      return NextResponse.rewrite(new URL(`${pathWithSearchParams}`, req.url))
+    }
+  },
+});
+
+export const config = {
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};
+```
+</pre>
+</div>
+
+## Explanation
+
+This middleware example uses `authMiddleware` from the Clerk library to protect routes and manage URL rewrites based on subdomains and paths.
+
+- **Public Routes**: Defines routes that do not require authentication, such as `/site` and `/api/uploading`.
+- **Before Auth**: An async function that runs before authentication. It's currently empty but can be customized as needed.
+- **After Auth**: An async function that runs after authentication. It handles rewriting URLs based on the presence of subdomains and specific paths.
+
+## Configuration
+
+The `config` object defines the matcher patterns for the middleware, specifying which routes it should apply to. In this example, it matches all routes except for those ending with a file extension or starting with `_next`.
+
+## Notes
+
+- Customize the `publicRoutes` array to include other routes that should be accessible without authentication.
+- Adjust the URL rewriting logic in the `afterAuth` function as needed to fit your application's requirements.
+
+By using middleware effectively, you can enhance the security and functionality of your Next.js application.
+
+---
