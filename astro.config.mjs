@@ -33,6 +33,8 @@ export default defineConfig({
           items: [
             // Each item here is one entry in the navigation menu.
             { label: "Example Guide", link: "/user-guides/example/" },
+            { label: "Introduction", link: "/user-guides/introduction/" },
+            { label: "Getting Started", link: "/user-guides/gettingstarted/" },
           ],
         },
         {

@@ -270,3 +270,102 @@
     color: #7f8c8d;
     margin-bottom: 20px;
 }
+
+ /* --------      x --------- x --------- x  */
+
+/* user guide intro css */
+ .user-intro-section {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  /* background-color: #170909; */
+}
+
+.user-intro-title {
+  font-size: 2em;
+  color: #2c3e50;
+  margin-bottom: 0.5em;
+}
+
+.user-intro-text {
+  font-size: 1em;
+  color: #34495e;
+  margin-bottom: 1em;
+}
+
+.user-intro-subtitle {
+  font-size: 1.5em;
+  color: #2980b9;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.user-intro-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.user-intro-list li {
+  background: #92c1cd;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  border-radius: 5px;
+  color: #2c3e50;
+  font-size: 1em;
+}
+
+/* user guide getting started css */
+.user-start-section {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  /* background-color: #f9f9f9; */
+}
+
+.user-start-title {
+  font-size: 2em;
+  color: #2c3e50;
+  margin-bottom: 0.5em;
+}
+
+.user-start-text {
+  font-size: 1em;
+  color: #34495e;
+  margin-bottom: 1em;
+}
+
+.user-start-subtitle {
+  font-size: 1.5em;
+  color: #2980b9;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.user-start-subsubtitle {
+  font-size: 1.2em;
+  color: #8e44ad;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+}
+
+.user-start-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.user-start-list li {
+  background: #ecf0f1;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  border-radius: 5px;
+  color: #2c3e50;
+  font-size: 1em;
+}
+
+.user-start-image {
+  display: block;
+  max-width: 100%;
+  margin: 1em 0;
+}
+
+
