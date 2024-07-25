@@ -6,7 +6,7 @@ export default defineConfig({
   integrations: [
     starlight({
       customCss: ["./src/styles/main.css"],
-      title: "My Docs",
+      title: "Nova Live Page",
       social: {
         github: "https://github.com/withastro/starlight",
       },

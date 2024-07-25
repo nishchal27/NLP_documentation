@@ -2,11 +2,18 @@
 title: Introduction
 ---
 
+import { Image } from 'astro:assets';
+import previewImage from '../../../assets/preview.png';
+
+
 <section className="user-intro-section">
   <h1 className="user-intro-title">Welcome to Nova-Live-page Website Builder</h1>
   <p className="user-intro-text">
     Welcome to <strong>Nova-Live-page</strong>, the ultimate solution for building websites, managing projects, and tracking performance through a comprehensive dashboard. This user guide will help you navigate and make the most out of our platform.
   </p>
+
+  {/* preview Image */}
+    <Image src={previewImage} alt="A bird sitting on a nest of eggs." />
   
   <h2 className="user-intro-subtitle">Key Features and Benefits</h2>
   <ul className="user-intro-list">

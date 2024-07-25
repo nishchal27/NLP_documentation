@@ -3,6 +3,9 @@ title: "Nova Live Page"
 description: "Introduction and Getting Started"
 ---
 
+import { Image } from 'astro:assets';
+import previewImage from '../../../assets/preview.png';
+
 
 # 🌟 **NLP B2B SAAS Documentation**
 <br/>
@@ -25,7 +28,8 @@ Welcome to the **NLP** web app documentation! This document provides an overview
 - **Notifications**: Stay informed with real-time notifications.
 - **Customizable Sidebar**: Tailor the navigation experience for agencies and subaccounts.
 
-<img src="../../../../public/preview.png" alt="NLP Overview" class="center" />
+  {/* preview Image */}
+    <Image src={previewImage} alt="A bird sitting on a nest of eggs." />
 
 ## **System Requirements**
 
